@@ -1,0 +1,34 @@
+  15 Dec 2011
+  
+  
+  - Set<> implement equals()
+  - @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER) or BEAN
+  - ConcurrentHashMap vs HashMap
+     
+  
+  
+  
+  <jms-destinations>
+    <jms-queue name="svc_rrd">
+        <entry name="queue/svc_rrd"/>
+    </jms-queue>
+    <jms-queue name="svc_rrd_reply">
+        <entry name="queue/svc_rrd_reply"/>
+    </jms-queue>
+    <jms-queue name="svc_rrd_aggr_reply">
+        <entry name="queue/svc_rrd_aggr_reply"/>
+    </jms-queue>
+    <jms-queue name="klnnms01/svc_rrd">
+        <entry name="queue/klnnms01/svc_rrd"/>
+    </jms-queue>
+    <jms-queue name="klnnms02/svc_rrd">
+        <entry name="queue/klnnms02/svc_rrd"/>
+    </jms-queue>
+    <jms-queue name="klnnms03/svc_rrd">
+        <entry name="queue/klnnms03/svc_rrd"/>
+    </jms-queue>
+    <jms-topic name="svc_rrd_ctrl_bus">
+        <entry name="topic/svc_rrd_ctrl_bus"/>
+    </jms-topic>
+</jms-destinations>
+                

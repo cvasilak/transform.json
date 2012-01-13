@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>svc-rrd-parent</artifactId>
+		<groupId>gr.forthnet.nms.svcrrd</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>svc-rrd-service</artifactId>
+	<name>svc-rrd-service</name>
+	<url>http://maven.apache.org</url>
+	<packaging>jar</packaging>
+
+	<properties>
+		<switchyard.version>0.3.0.Final</switchyard.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>gr.forthnet.nms.svcrrd</groupId>
+			<artifactId>svc-rrd-model</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.switchyard</groupId>
+			<artifactId>switchyard-api</artifactId>
+			<version>${switchyard.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.switchyard</groupId>
+			<artifactId>switchyard-plugin</artifactId>
+			<version>${switchyard.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.switchyard</groupId>
+			<artifactId>switchyard-transform</artifactId>
+			<version>${switchyard.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.switchyard.components</groupId>
+			<artifactId>switchyard-component-bean</artifactId>
+			<version>${switchyard.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.switchyard</groupId>
+			<artifactId>switchyard-test</artifactId>
+			<version>${switchyard.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.switchyard.components</groupId>
+			<artifactId>switchyard-component-camel</artifactId>
+			<version>${switchyard.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.switchyard</groupId>
+				<artifactId>switchyard-plugin</artifactId>
+				<version>${switchyard.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>configure</goal>
+						</goals>
+						<configuration>
+							<scannerClassNames>
+								<param>org.switchyard.component.bean.config.model.BeanSwitchYardScanner</param>
+								<param>org.switchyard.component.camel.config.model.RouteScanner</param>
+								<param>org.switchyard.component.bpm.config.model.BPMSwitchYardScanner</param>
+								<param>org.switchyard.component.rules.config.model.RulesSwitchYardScanner</param>
+								<param>org.switchyard.transform.config.model.TransformSwitchYardScanner</param>
+							</scannerClassNames>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.1</version>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<!-- Allows us to resolve svc-rrd-model classes in AS7 -->
+							<Dependencies>deployment.svc-rrd-model-1.0-SNAPSHOT.jar</Dependencies>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<configuration>
+					<mainClass>org.switchyard.examples.forge.HornetQClient</mainClass>
+					<includePluginDependencies>false</includePluginDependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
